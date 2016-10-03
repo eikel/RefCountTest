@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <iostream>
 #include <memory>
+#include <vector>
 
 struct BaseClass {
 	static uint32_t numInstances;
@@ -23,12 +24,16 @@ struct BaseClass {
 uint32_t BaseClass::numInstances = 0;
 
 int main(int, char **) {
-	auto refCounter = std::make_shared<BaseClass>(5, 10);
-	for(uint_fast32_t i = 0; i < 100000000; ++i) {
-		refCounter.reset(new BaseClass(i, 19));
-	}
-	for(uint_fast32_t i = 0; i < 100000000; ++i) {
-		std::shared_ptr<BaseClass> secondRefCounter = refCounter;
+	std::vector<std::shared_ptr<BaseClass>> refs;
+	refs.reserve(1000);
+	for(uint_fast32_t r = 0; r < 1000; ++r) {
+		refs.emplace_back(std::make_shared<BaseClass>(5, 10));
+		for(uint_fast32_t i = 0; i < 1000; ++i) {
+			refs.back().reset(new BaseClass(i, 19));
+		}
+		for(uint_fast32_t i = 0; i < 1000; ++i) {
+			std::shared_ptr<BaseClass> secondRefCounter = refs.back();
+		}
 	}
 	std::cout << BaseClass::numInstances << std::endl;
 	return 0;
