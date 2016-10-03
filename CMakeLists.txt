@@ -18,3 +18,9 @@ add_executable(STLTest
 add_executable(UtilTest
 	Util.cpp
 )
+
+find_program (TIME time)
+
+include(CTest)
+add_test(NAME STLTestTime COMMAND ${TIME} $<TARGET_FILE:STLTest>)
+add_test(NAME UtilTestTime COMMAND ${TIME} $<TARGET_FILE:UtilTest>)
