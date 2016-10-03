@@ -1,5 +1,5 @@
-#include "../PADrend/src/Util/References.h"
-#include "../PADrend/src/Util/ReferenceCounter.h"
+#include "Util/References.h"
+#include "Util/ReferenceCounter.h"
 #include <cstdint>
 
 struct BaseClass : public Util::ReferenceCounter<BaseClass> {
