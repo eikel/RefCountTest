@@ -14,6 +14,9 @@ struct BaseClass {
 	BaseClass(uint32_t _a, uint32_t _b) : a(_a), b(_b) {
 		++numInstances;
 	}
+	~BaseClass() {
+		--numInstances;
+	}
 	uint32_t a;
 	uint32_t b;
 };

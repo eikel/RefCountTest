@@ -15,6 +15,9 @@ struct BaseClass : public Util::ReferenceCounter<BaseClass> {
 	BaseClass(uint32_t _a, uint32_t _b) : Util::ReferenceCounter<BaseClass>(), a(_a), b(_b) {
 		++numInstances;
 	}
+	~BaseClass() {
+		--numInstances;
+	}
 	uint32_t a;
 	uint32_t b;
 };
