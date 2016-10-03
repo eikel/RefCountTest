@@ -13,7 +13,7 @@ struct BaseClass {
 uint32_t BaseClass::numInstances = 0;
 
 int main(int, char **) {
-	std::shared_ptr<BaseClass> refCounter(new BaseClass(5, 10));
+	auto refCounter = std::make_shared<BaseClass>(5, 10);
 	for(uint_fast32_t i = 0; i < 100000000; ++i) {
 		refCounter.reset(new BaseClass(i, 19));
 	}
